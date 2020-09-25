@@ -13,4 +13,7 @@ RUN apk add --no-cache socat
 # Monitor socat
 COPY runwatch/100.socat-zwave.enabled.sh /runwatch/100.socat-zwave.enabled.sh
 
+# Monitor socat
+COPY runwatch/200.socat-zigbee.enabled.sh /runwatch/200.socat-zigbee.enabled.sh
+
 CMD [ "bash","/runwatch/run.sh" ]

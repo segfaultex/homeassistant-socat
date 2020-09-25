@@ -38,15 +38,21 @@ Path to log file. Ommit to write logs to stdout.
 Default: stdout
 
 **SOCAT_ZWAVE_TYPE**="tcp"
+
 **SOCAT_ZIGBEE_TYPE**="tcp"
+
 **SOCAT_ZWAVE_HOST**="192.168.5.5"
+
 **SOCAT_ZIGBEE_HOST**="192.168.5.5"
+
 **SOCAT_ZWAVE_PORT**="7676"
+
 **SOCAT_ZIGBEE_PORT**="6767"
 
 Where socat should connect to - will be used as tcp://192.168.5.5:7676
 
 **SOCAT_ZWAVE_LINK**="/dev/zwave"
+
 **SOCAT_ZIGBEE_LINK**="/dev/zigbee"
 
 What the zwave or zigbee device should be mapped to. Use this in your home assistant configuration file.

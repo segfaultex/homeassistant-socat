@@ -1,14 +1,13 @@
 # Home Assistant with socat for remote zwave and zigbee
 
-Based on [homeassistant-home-assistant](https://hub.docker.com/r/homeassistant/home-assistant/) image, [published on docker hub](https://hub.docker.com/r/vladbabii/homeassistant-socat/).
+Based on [homeassistant-home-assistant](https://hub.docker.com/r/homeassistant/home-assistant/) image
 
-Please [report issues on github](https://github.com/vladbabii/homeassistant-socat/issues).
 
-Instead of using a locally-connected zwave device (usb stick/etc), we can use a serial device mapped over the network with ser2net and then map it to a local zwave serial device with socat.
+Instead of using a locally-connected zwave and zigbee device (usb stick/etc), we can use a serial device mapped over the network with ser2net and then map it to a local zwave and zigbee serial device with socat.
 
 This docker container ensures that
 
- - a zwave device is mapped in the local docker with socat
+ - a zwave and zigbee device is mapped in the local docker with socat
 
  - home assistant is running
 

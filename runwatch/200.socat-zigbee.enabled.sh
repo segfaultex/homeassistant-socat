@@ -7,7 +7,7 @@ if [[ -z "${SOCAT_ZIGBEE_LOG}" ]]; then
   SOCAT_ZIGBEE_LOG="-lf \"$SOCAT_ZIGBEE_LOG\""
 fi
 if [[ -z "${SOCAT_ZIGBEE_LINK}" ]]; then
-  SOCAT_ZWAVE_LINK="/dev/zigbee"
+  SOCAT_ZIGBEE_LINK="/dev/zigbee"
 fi
 
 BINARY="socat"

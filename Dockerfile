@@ -5,7 +5,7 @@ RUN mkdir /runwatch
 COPY runwatch/run.sh /runwatch/run.sh
 
 # Monitor HomeAssistant
-COPY runwatch/200.home-assistant.enabled.sh /runwatch/200.home-assistant.enabled.sh
+COPY runwatch/300.home-assistant.enabled.sh /runwatch/300.home-assistant.enabled.sh
 
 # Install socat
 RUN apk add --no-cache socat

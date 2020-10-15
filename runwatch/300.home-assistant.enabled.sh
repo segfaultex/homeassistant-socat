@@ -30,7 +30,7 @@ is-running)
 
 start)
     echo "Starting... $BINARY $PARAMS" >> "$LOG_FILE"
-    if pgrep -f "socat" >/dev/null 2>&1 ; then
+    if [[ `pgrep -f "socat" | wc -l` == 2 ]] >/dev/null 2>&1 ; then
         # socat is running
         cd /usr/src/homeassistant
         $BINARY $PARAMS 2>$LOG_FILE >$LOG_FILE &

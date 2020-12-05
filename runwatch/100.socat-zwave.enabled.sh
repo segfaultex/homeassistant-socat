@@ -46,8 +46,6 @@ is-running)
 start)
     echo "Starting... $BINARY $PARAMS" >> "$LOG_FILE"
     $BINARY $PARAMS 2>$LOG_FILE >$LOG_FILE &
-    # delay other checks for 5 seconds
-    sleep 5
     ;;
 
 start-fail)

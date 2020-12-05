@@ -38,7 +38,7 @@ is-running)
     # stop home assistant if socat is not running 
     if pgrep -f "python -m homeassistant" >/dev/null 2>&1 ; then
         echo "stopping home assistant since socat is not running"
-        kill -9 $(pgrep -f "-m homeassistant --config /config")
+        kill -9 $(pgrep -f "homeassistant --config /config")
     fi
     exit 0
     ;;

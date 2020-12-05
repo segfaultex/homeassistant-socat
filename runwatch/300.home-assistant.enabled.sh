@@ -23,7 +23,14 @@ describe)
 ## exit 1 = is running
 is-running)
     if pgrep -f "$BINARY $PARAMS" >/dev/null 2>&1 ; then
+      if [[ `pgrep -f "socat" | wc -l` != 2 ]] >/dev/null 2>&1 ; then
+        echo "Something is wrong with Socat. Stopping... $BINARY $PARAMS"
+        cd /usr/src/app
+        kill -9 $(pgrep -f "$BINARY $PARAMS")
+        exit 0
+      else
         exit 1
+      fi
     fi
     exit 0
     ;;

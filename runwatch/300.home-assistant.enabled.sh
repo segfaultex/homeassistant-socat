@@ -2,6 +2,7 @@
 
 BINARY="python"
 PARAMS="-m homeassistant --config /config"
+RESTARTPARAMS="/usr/local/bin/python /usr/src/homeassistant/homeassistant/__main__.py --config /config"
 
 ######################################################
 
@@ -22,10 +23,11 @@ describe)
 ## exit 0 = is not running
 ## exit 1 = is running
 is-running)
-    CHAPID=$(pgrep -f "$BINARY $PARAMS")
     if pgrep -f "$BINARY $PARAMS" >/dev/null 2>&1 ; then
-      if [[ $CHAPID != `cat /HAPID` ]] ; then
-        echo " [ $CHAPID ] != [ `cat /HAPID` ] Home Assistant was restarted. Killing Socat" >> "$LOG_FILE"
+      if [[ `pgrep -f "$RESTARTPARAMS" | wc -l` > 0 ]] ; then
+        echo "Found $RESTARTPARAMS" >> "$LOG_FILE"
+        echo "Home Assistant was restarted. Killing Socat and Restarted Home Assistant" >> "$LOG_FILE"
+        kill -9 $(pgrep -f "$RESTARTPARAMS")
         killall socat
         exit 0
       elif [[ `pgrep -f "socat" | wc -l` != 2 ]] >/dev/null 2>&1 ; then
@@ -45,7 +47,6 @@ start)
         # socat is running
         cd /usr/src/homeassistant
         $BINARY $PARAMS 2>$LOG_FILE >$LOG_FILE &
-        pgrep -f "$BINARY $PARAMS" > /HAPID
         exit 0
     else
         # socat is not running

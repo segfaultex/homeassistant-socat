@@ -25,8 +25,8 @@ is-running)
     CHAPID=$(pgrep -f "$BINARY $PARAMS")
     if pgrep -f "$BINARY $PARAMS" >/dev/null 2>&1 ; then
       if [[ $CHAPID != `cat /HAPID` ]] ; then
-        echo " [ $CHAPID ] != [ `cat /HAPID` ] Killing Home Assistant" >> "$LOG_FILE"
-        kill -9 $(pgrep -f "$BINARY $PARAMS")
+        echo " [ $CHAPID ] != [ `cat /HAPID` ] Home Assistant was restarted. Killing Socat" >> "$LOG_FILE"
+        killall socat
         exit 0
       elif [[ `pgrep -f "socat" | wc -l` != 2 ]] >/dev/null 2>&1 ; then
         echo "At least one instance of socat is not running. Stopping... Home Assistant" >> "$LOG_FILE"
@@ -45,7 +45,7 @@ start)
         # socat is running
         cd /usr/src/homeassistant
         $BINARY $PARAMS 2>$LOG_FILE >$LOG_FILE &
-        $(pgrep -f "$BINARY $PARAMS") > /HAPID
+        pgrep -f "$BINARY $PARAMS" > /HAPID
         exit 0
     else
         # socat is not running

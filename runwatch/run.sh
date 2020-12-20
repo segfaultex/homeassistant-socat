@@ -2,6 +2,8 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 B=$(which bash)
 
+touch /HAPID
+
 if [[ -z "${DEBUG_VERBOSE}" ]]; then
   CONFIG_DEBUG_VERBOSE=0
 else

@@ -22,10 +22,14 @@ describe)
 ## exit 0 = is not running
 ## exit 1 = is running
 is-running)
+    CHAPID=$(pgrep -f "$BINARY $PARAMS")
     if pgrep -f "$BINARY $PARAMS" >/dev/null 2>&1 ; then
-      if [[ `pgrep -f "socat" | wc -l` != 2 ]] >/dev/null 2>&1 ; then
-        echo "Something is wrong with Socat. Stopping... $BINARY $PARAMS"
-        cd /usr/src/app
+      if [[ $CHAPID != `cat /HAPID` ]] ; then
+        echo " [ $CHAPID ] != [ `cat /HAPID` ] Killing Home Assistant" >> "$LOG_FILE"
+        kill -9 $(pgrep -f "$BINARY $PARAMS")
+        exit 0
+      elif [[ `pgrep -f "socat" | wc -l` != 2 ]] >/dev/null 2>&1 ; then
+        echo "At least one instance of socat is not running. Stopping... Home Assistant" >> "$LOG_FILE"
         kill -9 $(pgrep -f "$BINARY $PARAMS")
         exit 0
       else
@@ -41,20 +45,21 @@ start)
         # socat is running
         cd /usr/src/homeassistant
         $BINARY $PARAMS 2>$LOG_FILE >$LOG_FILE &
+        $(pgrep -f "$BINARY $PARAMS") > /HAPID
         exit 0
     else
         # socat is not running
-        echo "##### Socat is not running, skipping start of home assistant"
+        echo "At least one instance of socat is not running." >> "$LOG_FILE"
         exit 1
     fi
     ;;
 
 start-fail)
-    echo "Start failed! $BINARY $PARAMS"
+    echo "Start failed! $BINARY $PARAMS" >> "$LOG_FILE"
     ;;
 
 stop)
-    echo "Stopping... $BINARY $PARAMS"
+    echo "Stopping... Home Assistant" >> "$LOG_FILE"
     cd /usr/src/app
     kill -9 $(pgrep -f "$BINARY $PARAMS")
     ;;

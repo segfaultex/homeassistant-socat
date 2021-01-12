@@ -1,5 +1,4 @@
 FROM "homeassistant/home-assistant:latest"
-LABEL maintainer="Vlad Babii"
 
 RUN mkdir /runwatch
 COPY runwatch/run.sh /runwatch/run.sh
